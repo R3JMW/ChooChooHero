@@ -15,8 +15,8 @@ defaults:
         working-directory: cch-web
 
 jobs:
-    ESLint:
-        name: ESLint Code Review
+    review:
+        name: Code Review
         runs-on: ubuntu-latest
 
         steps:
