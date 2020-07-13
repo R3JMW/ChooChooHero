@@ -1,0 +1,9 @@
+group 'com.cch'
+version '1.0-SNAPSHOT'
+
+dependencies {
+
+    implementation project(':cch-dao')
+
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+}

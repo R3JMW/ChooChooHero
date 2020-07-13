@@ -1,0 +1,48 @@
+plugins {
+  id 'distribution'
+  id 'maven-publish'
+}
+
+distTar.enabled false
+assembleDist.enabled false
+installDist.enabled false
+
+distributions {
+  main {
+    distributionBaseName = 'cch-web'
+    contents {
+      into('e2e') {
+        from 'e2e'
+      }
+      into('src') {
+        from 'src'
+      }
+      into('gradle') {
+        from 'gradle'
+      }
+      from '.editorconfig'
+      from '.gitattributes'
+      from '.gitignore'
+      from 'angular.json'
+      from 'browserslist'
+      from 'build.gradle'
+      from 'gradlew'
+      from 'gradlew.bat'
+      from 'settings.gradle'
+      from 'karma.conf.js'
+      from 'package.json'
+      from 'package-lock.json'
+      from 'proxy.config.js'
+      from 'README.md'
+      from 'source-map-parser.js'
+      from 'tsconfig.app.json'
+      from 'tsconfig.json'
+      from 'tsconfig.spec.json'
+      from 'tslint.json'
+    }
+  }
+}
+
+artifacts {
+  archives distZip
+}

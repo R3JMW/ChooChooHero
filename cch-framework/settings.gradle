@@ -1,0 +1,8 @@
+rootProject.name = 'cch-framework'
+include 'cch-lib'
+include 'cch-dao'
+include 'cch-model'
+include 'cch-service'
+include 'cch-web'
+include 'cch-api'
+include 'cch-mobile'

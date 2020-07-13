@@ -1,0 +1,8 @@
+<form [formGroup]="form">
+    <input formControlName="date" cch-datepicker type="text">
+
+    <div cch-daterangepicker>
+        <input formControlName="startDate" cch-datepicker class="start" type="text">
+        <input formControlName="endDate" cch-datepicker class="end" type="text">
+    </div>
+</form>

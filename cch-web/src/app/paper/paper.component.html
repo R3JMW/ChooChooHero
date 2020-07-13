@@ -1,0 +1,7 @@
+<div class="container">
+    <div class="wrapper">
+        <ckeditor [editor]="editor" [disabled]="disabled" (change)="onChange($event)"></ckeditor>
+    </div>
+    
+    <div class="display" [innerHTML]="data"></div>
+</div>

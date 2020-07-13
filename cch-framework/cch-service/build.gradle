@@ -1,0 +1,21 @@
+group 'com.cch'
+version '1.0-SNAPSHOT'
+
+jar {
+    enabled = true
+}
+
+bootJar {
+    enabled = false
+}
+
+dependencies {
+
+    compile project(':cch-dao')
+
+    implementation('org.springframework.boot:spring-boot-starter') {
+        exclude group: 'org.yaml', module: 'snakeyaml'
+    }
+
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+}

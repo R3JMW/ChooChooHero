@@ -1,0 +1,42 @@
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<generatorConfiguration>
+    <context id="cch" targetRuntime="MyBatis3Simple">
+        <jdbcConnection driverClass="${driverClass}"
+                        connectionURL="${connectionURL}"
+                        userId="${userId}"
+                        password="${password}"
+        />
+
+        <!-- Always use the java.math.BigDecimal type for DECIMAL and NUMBERIC columns -->
+        <javaTypeResolver>
+            <property name="forceBigDecimals" value="true"/>
+        </javaTypeResolver>
+
+        <javaModelGenerator targetPackage="com.cch.model" targetProject="cch-dao/src/main/java">
+            <property name="enableSubPackages" value="false"/>
+            <property name="trimStrings" value="true"/>
+        </javaModelGenerator>
+
+        <sqlMapGenerator targetPackage="mapper" targetProject="cch-dao/src/main/resources">
+            <property name="enableSubPackages" value="false"/>
+        </sqlMapGenerator>
+
+        <javaClientGenerator type="XMLMAPPER" targetPackage="com.cch.mapper" targetProject="cch-dao/src/main/java">
+            <property name="enableSubPackages" value="false"/>
+        </javaClientGenerator>
+
+        <!--<table schema="public" tableName="user">-->
+            <!--<columnOverride column="reg_date" javaType="java.sql.Timestamp"></columnOverride>-->
+        <!--</table>-->
+        <table schema="public" tableName="content">
+            <columnOverride column="create_date" javaType="java.sql.Timestamp"></columnOverride>
+            <columnOverride column="content" javaType="java.lang.String"></columnOverride>
+        </table>
+        <table schema="public" tableName="comment">
+            <columnOverride column="comment_date" javaType="java.sql.Timestamp"></columnOverride>
+            <columnOverride column="comment" javaType="java.lang.String"></columnOverride>
+        </table>
+    </context>
+</generatorConfiguration>

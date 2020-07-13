@@ -1,0 +1,10 @@
+<div>
+    <div>
+        <form [formGroup]="form"
+            onkeypress="if(event.keyCode==13||event.which==13){return false;}">
+            <input type="text" formControlName="userName">
+            <input type="password" formControlName="userPassword">
+        </form>
+        <button (click)="login()">Login</button>
+    </div>
+</div>

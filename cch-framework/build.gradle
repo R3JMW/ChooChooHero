@@ -1,0 +1,118 @@
+buildscript {
+
+    repositories {
+        maven {
+            url 'https://maven.aliyun.com/nexus/content/groups/public/'
+        }
+        maven {
+            url 'https://maven.aliyun.com/nexus/content/repositories/jcenter'
+        }
+        mavenCentral()
+    }
+
+    dependencies {
+        classpath 'org.postgresql:postgresql:42.2.12'
+    }
+}
+
+plugins {
+    id 'org.springframework.boot' version '2.3.1.RELEASE' apply false
+    id 'io.spring.dependency-management' version '1.0.9.RELEASE' apply false
+
+    id 'org.flywaydb.flyway' version '6.4.2'
+}
+
+group 'com.cch'
+version '1.0-SNAPSHOT'
+
+subprojects {
+
+    apply plugin: 'java'
+    apply plugin: 'org.springframework.boot'
+    apply plugin: 'io.spring.dependency-management'
+
+    sourceCompatibility = 1.8
+
+    repositories {
+        maven {
+            url 'https://maven.aliyun.com/nexus/content/groups/public/'
+        }
+        maven {
+            url 'https://maven.aliyun.com/nexus/content/repositories/jcenter'
+        }
+        mavenCentral()
+    }
+}
+
+configure(subprojects.findAll({it.name != 'cch-lib'})) {
+    dependencies {
+        compile project(':cch-lib')
+    }
+}
+
+repositories {
+    maven {
+        url 'https://maven.aliyun.com/nexus/content/groups/public/'
+    }
+    maven {
+        url 'https://maven.aliyun.com/nexus/content/repositories/jcenter'
+    }
+    mavenCentral()
+}
+
+def JDBC_URL = 'jdbc:postgresql://127.0.0.1:5432/cch'
+def DB_DRIVER = 'org.postgresql.Driver'
+def DB_USER = 'cch'
+def DB_PASSWD = 'cch'
+def DB_ENCODING = 'utf-8'
+// Flyway migrations location
+def FLYWAY_LOCATIONS = ['filesystem:Flyway/db/migration']
+// MyBatis Generator config file
+def GENERATOR_CONFIG = 'MyBatisGenerator/generatorConfig.xml'
+
+//flyway {
+//    url = JDBC_URL
+//    user = DB_USER
+//    password = DB_PASSWD
+//    encoding = DB_ENCODING
+//    locations = FLYWAY_LOCATIONS
+//}
+
+task migratePostgres(type: org.flywaydb.gradle.task.FlywayMigrateTask) {
+    url = JDBC_URL
+    user = DB_USER
+    password = DB_PASSWD
+    encoding = DB_ENCODING
+    locations = FLYWAY_LOCATIONS
+}
+
+configurations {
+    mybatisGenerator
+}
+
+dependencies {
+    mybatisGenerator 'org.postgresql:postgresql:42.2.12'
+    mybatisGenerator 'org.mybatis.generator:mybatis-generator-core:1.4.0'
+}
+
+task mybatisGenerator {
+    ant.properties['driverClass'] = DB_DRIVER
+    ant.properties['connectionURL'] = JDBC_URL
+    ant.properties['userId'] = DB_USER
+    ant.properties['password'] = DB_PASSWD
+    doLast {
+        ant.taskdef(
+                name: 'mybatisGenerator',
+                classname: 'org.mybatis.generator.ant.GeneratorAntTask',
+                classpath: configurations.mybatisGenerator.asPath
+        )
+        ant.mybatisGenerator(overwrite: true, configfile: GENERATOR_CONFIG, verbose: true) {
+            propertyset {
+                propertyref(name: 'driverClass')
+                propertyref(name: 'connectionURL')
+                propertyref(name: 'userId')
+                propertyref(name: 'password')
+            }
+        }
+    }
+}

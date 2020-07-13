@@ -1,0 +1,18 @@
+<!-- <div>{{ date | date }}</div>
+
+<table datatable [dtOptions]="dtOptions"></table>
+
+
+<div class="error"></div>
+
+<img src="https://favicon.ico" alt=""> -->
+
+<div>
+    <button [routerLink]="['/error-handler']" routerLinkActive="router-link-active">Back</button>
+    <button [routerLink]="['/error-handler/http']" routerLinkActive="router-link-active">HTTP Error</button>
+    <button [routerLink]="['/error-handler/jquery']" routerLinkActive="router-link-active">JQuery Error</button>
+    <button [routerLink]="['/error-handler/provider']" routerLinkActive="router-link-active">Provider Error</button>
+    <button [routerLink]="['/error-handler/outside']" routerLinkActive="router-link-active" >Outside Zone Error</button>
+</div>
+
+<router-outlet></router-outlet>
