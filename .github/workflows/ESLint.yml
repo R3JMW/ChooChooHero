@@ -28,6 +28,8 @@ jobs:
 
             - name: Init Node.js Context
               run: |
+                pwd
+                cd cch-web
                 cp package-lint.json package.json
-                cd cch-web && npm install
+                npm install
 
