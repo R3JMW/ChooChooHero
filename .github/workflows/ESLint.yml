@@ -28,8 +28,9 @@ jobs:
 
             - name: Init Node.js Context
               run: |
-                pwd
-                cd cch-web
                 cp package-lint.json package.json
                 npm install
 
+            - name: ESLint Code Check
+              run: |
+                npm run lint
